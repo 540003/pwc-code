@@ -1,0 +1,36 @@
+.controllabel{
+    font-size: 18px;
+    color: grey;
+}
+div{
+    text-align: center;
+    top: 50px;
+    position: relative;
+    margin: 30px;
+}
+button{
+    margin-right: 600px;
+    top: 60px;
+    left:56%;
+    position: relative;
+}
+.input-control{
+    border: 2px solid grey;
+}
+h1{
+    text-align: center;
+    margin: 10px;
+    color: #34b1eb;
+}
+.has-error{
+    color: red;
+    left: 25px;
+    position: relative;
+}
+.required:after {
+    content:" *";
+    color: red;
+  }
+  select{
+    width: 188px;
+  }

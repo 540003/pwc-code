@@ -1,0 +1,47 @@
+<h1 *ngIf="!editMode">Please enter user details below for new user</h1>
+<h1 *ngIf="editMode">Please update details below for exixsting user</h1>
+<div *ngIf="showSuccessAlert" class="alert alert-success" role="alert">
+    User was created successfully <a [routerLink]="['/users']">click here to go to user list</a>
+</div>
+<div *ngIf="showErrorAlert" class="alert alert-danger" role="alert">
+    User creation failed
+</div>
+<form [formGroup]="userForm">
+    <div class="form-group">
+        <label for="name" class="col-sm-1 col-md-1 controllabel required">Name </label>
+        <input id="name" [required]=true name="name" type="text" class="input-control" formControlName="name">
+        <!-- <p ></p> -->
+        <p *ngIf="!userForm.controls.name?.valid && (userForm.controls.name?.dirty ||userForm.controls.name?.touched)"
+            class="has-error">
+            Name is required</p>
+    </div>
+    <div class="form-group">
+        <label for="phone" class="col-sm-1 col-md-1 controllabel required">Address </label>
+        <input id="phone" type="text" class="input-control" formControlName="address">
+        <p *ngIf="!userForm.controls.address?.valid && (userForm.controls.address?.dirty ||userForm.controls.address?.touched)"
+            class="has-error">
+            Address is required</p>
+    </div>
+    <div class="form-group">
+        <label for="email" class="col-sm-1 col-md-1 controllabel required">Occupation</label>
+        <!-- <input id="email" type="text" class="input-control" formControlName="occupation"> -->
+        <select class="custom-select"  formControlName="occupationName" class="input-control">
+            <option value="">Choose occupation</option>
+            <option *ngFor="let city of occupation" [ngValue]="city">{{city}}</option>
+          </select>
+        <p *ngIf="!userForm.controls.occupationName?.valid && (userForm.controls.occupationName?.dirty ||userForm.controls.occupationName?.touched)"
+            class="has-error">
+            Occupation is required</p>
+    </div>
+    <div class="form-group">
+        <label for="website" class="col-sm-1 col-md-1 controllabel required"> Date Of Birth</label>
+        <input id="website" type="text" class="input-control"  placeholder="YYYY-MM-dd" value="" formControlName="dob" type="date" [min]="todayDate" (change)="checkForPastDates(userForm.controls.dob.value)">
+        <p *ngIf="!userForm.controls.dob?.valid && (userForm.controls.dob?.dirty ||userForm.controls.dob?.touched)"
+        class="has-error">
+        Date Of Birth is required</p>
+        <p *ngIf="pastDateSelected"
+            class="has-error">
+            Past Date is not allowed</p>
+    </div>
+</form>
+<button class="btn btn-primary" (click)="createUser()" [disabled]="userForm.status==='INVALID' || pastDateSelected">submit</button>
